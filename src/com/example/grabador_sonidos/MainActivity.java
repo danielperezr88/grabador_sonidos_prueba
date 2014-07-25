@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 
     //Es la clase encargada de leer un fichero del movil, y reproducirlo
     reproductor my_player;
-    SoundManager snd;
+    //SoundManager snd;
 	int water, alarm, fly, door, laughter, phone;
     
     //Estos son los controles de la pantalla, para habilitarlos, cambiarles el texto, etc...
@@ -83,18 +83,18 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 
-        snd = new SoundManager(getApplicationContext());
+        //snd = new SoundManager(getApplicationContext());
  ////////////////////////////////////////////////////////////////////////////////
 		// Set volume rocker mode to media volume
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
  
         // Load the samples from res/raw
-        water = snd.load(R.raw.agua);
-        alarm = snd.load(R.raw.alarma);
-        fly = snd.load(R.raw.mosca);
-        door = snd.load(R.raw.puerta);
-        laughter = snd.load(R.raw.risa);
-        phone = snd.load(R.raw.telefono);
+        //water = snd.load(R.raw.agua);
+        //alarm = snd.load(R.raw.alarma);
+        //fly = snd.load(R.raw.mosca);
+        //door = snd.load(R.raw.puerta);
+        //laughter = snd.load(R.raw.risa);
+        //phone = snd.load(R.raw.telefono);
            
 	      
 	   //obtengo el valor del buffer size en funcion de mis parametros de grabacion
