@@ -79,9 +79,9 @@ const int MAX_TRACKS = 16;
 vector<SoundTouchStream> stStreams(MAX_TRACKS);
 
 static void* getConvBuffer(int);
-static int write(const float*, queue<jbyte>*, int, int);
+static int write(const SAMPLETYPE*, queue<jbyte>*, int, int);
 static void setup(SoundTouchStream&, int, int, int, float, float);
-static void convertInput(jbyte*, float*, int, int);
+static void convertInput(jbyte*, SAMPLETYPE*, int, int);
 static inline int saturate(float, float, float);
 static void* getConvBuffer(int);
 static int process(SoundTouchStream&, SAMPLETYPE*, queue<jbyte>*, int, bool);
@@ -268,7 +268,7 @@ static void* getConvBuffer(int sizeBytes)
 	return convBuff;
 }
 
-static int write(const float *bufferIn, queue<jbyte>* bufferOut,
+static int write(const SAMPLETYPE *bufferIn, queue<jbyte>* bufferOut,
 		int numElems, int bytesPerSample)
 {
 	int numBytes;
@@ -383,7 +383,7 @@ static void setup(SoundTouchStream& soundTouch, int channels, int sampleRate,
 	}
 }
 
-static void convertInput(jbyte* input, float* output, const int BUFF_SIZE,
+static void convertInput(jbyte* input, SAMPLETYPE* output, const int BUFF_SIZE,
 		int bytesPerSample)
 {
 	switch (bytesPerSample)
@@ -394,7 +394,7 @@ static void convertInput(jbyte* input, float* output, const int BUFF_SIZE,
 		double conv = 1.0 / 128.0;
 		for (int i = 0; i < BUFF_SIZE; i++)
 		{
-			output[i] = (float) (temp2[i] * conv - 1.0);
+			output[i] = (SAMPLETYPE) (temp2[i] * conv - 1.0);
 		}
 		break;
 	}
@@ -405,7 +405,7 @@ static void convertInput(jbyte* input, float* output, const int BUFF_SIZE,
 		for (int i = 0; i < BUFF_SIZE; i++)
 		{
 			short value = temp2[i];
-			output[i] = (float) (value * conv);
+			output[i] = (SAMPLETYPE) (value * conv);
 		}
 		break;
 	}
@@ -418,7 +418,7 @@ static void convertInput(jbyte* input, float* output, const int BUFF_SIZE,
 			int value = *((int*) temp2);
 			value = value & 0x00ffffff;             // take 24 bits
 			value |= (value & 0x00800000) ? 0xff000000 : 0; // extend minus sign bits
-			output[i] = (float) (value * conv);
+			output[i] = (SAMPLETYPE) (value * conv);
 			temp2 += 3;
 		}
 		break;
@@ -431,7 +431,7 @@ static void convertInput(jbyte* input, float* output, const int BUFF_SIZE,
 		for (int i = 0; i < BUFF_SIZE; i++)
 		{
 			int value = temp2[i];
-			output[i] = (float) (value * conv);
+			output[i] = (SAMPLETYPE) (value * conv);
 		}
 		break;
 	}
